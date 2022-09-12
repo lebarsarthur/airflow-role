@@ -1,12 +1,12 @@
 ---
 
-- name: Airflow | Generate password for {{ airflow_user }}
-  shell: openssl rand -hex 12
-  register: airflow_user_password
-
-- name: Print airflow user password
-  debug:
-    msg: "{{ airflow_user_password }}"
+#- name: Airflow | Generate password for {{ airflow_user }}
+#  shell: openssl rand -hex 12
+#  register: airflow_user_password
+#
+#- name: Print airflow user password
+#  debug:
+#    msg: "{{ airflow_user_password }}"
     
 - name: Airflow | Ensure Airflow group
   group:
@@ -16,9 +16,8 @@
 - name: Airflow | Ensure Airflow user
   user:
     name: "{{ airflow_user }}"
-    password: "{{ airflow_user_password.stdout | password_hash('sha512')}}"
-    groups:
-      - "{{ airflow_group }}"
+#    password: "{{ airflow_user_password.stdout | password_hash('sha512')}}"
+    group: "{{ airflow_group }}"
     system: true
     shell: "{{ airflow_shell }}"
     createhome: "{{ airflow_createhome }}"
