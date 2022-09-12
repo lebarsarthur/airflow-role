@@ -15,7 +15,7 @@
 - name: Airflow | Ensure Airflow user
   user:
     name: "{{ airflow_user }}"
-    password: "{{ airflow_user_password | password_hash('sha512')}}"
+    password: "{{ airflow_user_password.stdout | password_hash('sha512')}}"
     group: "{{ airflow_group }}"
     system: true
     shell: "{{ airflow_shell }}"
