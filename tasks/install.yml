@@ -1,12 +1,8 @@
 ---
 
 - name: Airflow | Generate password for {{ airflow_user }}
-  shell: makepasswd --chars=20
+  shell: openssl rand -hex 12
   register: airflow_user_password
-
-- name: Airflow | Generate encrypted password for {{ airflow_user }}
-  shell: mkpasswd --method=SHA-512 {{ airflow_user_password.stdout }}
-  register: encrypted_airflow_user_password
 
 - name: Airflow | Ensure Airflow group
   group:
@@ -16,7 +12,7 @@
 - name: Airflow | Ensure Airflow user
   user:
     name: "{{ airflow_user }}"
-    password: "{{ encrypted_airflow_user_password }}"
+    password: "{{ airflow_user_password }}"
     group: "{{ airflow_group }}"
     system: true
     shell: "{{ airflow_shell }}"
