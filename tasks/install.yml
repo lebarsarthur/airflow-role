@@ -1,6 +1,5 @@
 ---
 
-
 - name: Airflow | Generate password for {{ airflow_user }}
   shell: makepasswd --chars=20
   register: airflow_user_password
