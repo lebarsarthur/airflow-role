@@ -23,6 +23,7 @@
     createhome: "{{ airflow_createhome }}"
     home: "{{ airflow_user_home }}"
   become: true
+  become_method: sudo
 
 - name: Airflow | Ensure airflow skeleton paths
   file:
