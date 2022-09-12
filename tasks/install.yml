@@ -1,7 +1,7 @@
 ---
 
 - name: Airflow | Generate password for {{ airflow_user }}
-  shell: openssl rand -hex 12 | openssl enc -e -des3 -base64 -pass pass:mypasswd -pbkdf2
+  shell: openssl rand -hex 12
   register: airflow_user_password
 
 - name: Airflow | Ensure Airflow group
@@ -12,7 +12,7 @@
 - name: Airflow | Ensure Airflow user
   user:
     name: "{{ airflow_user }}"
-    password: "{{ airflow_user_password }}"
+    password: "{{ airflow_user_password | password_hash('sha512')}}"
     group: "{{ airflow_group }}"
     system: true
     shell: "{{ airflow_shell }}"
