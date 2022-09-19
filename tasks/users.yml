@@ -9,12 +9,6 @@
   when: airflow_version is version( '2.0.0', '>=')
   no_log: true
 
-- name: Airflow test | debug admin users
-  become: true
-  become_user: "{{ airflow_user }}"
-  debug:
-    msg: "echo {{ airflow_admin_users }}"
-
 - name: Airflow | Create Admin users (> 2.0)
   become: true
   become_user: "{{ airflow_user }}"
@@ -37,8 +31,8 @@
       - "{{ item.email }}"
   no_log: true
   with_items: "{{ airflow_admin_users }}"
-  when:
-    - airflow_version is version( '2.0.0', '>=')
+#  when:
+#    - airflow_version is version( '2.0.0', '>=')
 #    - "item.email not in airflow_check_users.stdout"
 
 - name: Airflow | Create regular users (> 2.0)
