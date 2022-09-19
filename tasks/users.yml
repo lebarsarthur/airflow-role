@@ -33,7 +33,7 @@
   with_items: "{{ airflow_admin_users }}"
   when:
     - airflow_version is version( '2.0.0', '>=')
-    - "item.email not in airflow_check_users.stdout"
+#    - "item.email not in airflow_check_users.stdout"
 
 - name: Airflow | Create regular users (> 2.0)
   become: true
@@ -60,4 +60,4 @@
   when:
     - airflow_version is version( '2.0.0', '>=')
     - airflow_regular_users is defined
-    - "item.email not in airflow_check_users.stdout"
+#    - "item.email not in airflow_check_users.stdout"
