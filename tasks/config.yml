@@ -85,13 +85,26 @@
     - airflow-db-init
     - skip_ansible_lint
 
+- name: Airflow | Reset DB > 2.0
+  command: "{{ airflow_executable }} db reset"
+  become: true
+  become_user: "{{ airflow_user }}"
+  when:
+    - airflow_version is version( '2.0.0', '>=')
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+    - restart airflow-flower
+  tags: airflow-db-init
+
 - name: Airflow | Initializing DB > 2.0
   command: "{{ airflow_executable }} db init"
   become: true
   become_user: "{{ airflow_user }}"
   when:
     - airflow_version is version( '2.0.0', '>=')
-#    - airflow_install.changed or airflow_config.changed
+    - airflow_install.changed or airflow_config.changed
   notify:
     - restart airflow-webserver
     - restart airflow-scheduler
