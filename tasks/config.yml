@@ -91,7 +91,7 @@
   become_user: "{{ airflow_user }}"
   when:
     - airflow_version is version( '2.0.0', '>=')
-    - airflow_install.changed or airflow_config.changed
+#    - airflow_install.changed or airflow_config.changed
   notify:
     - restart airflow-webserver
     - restart airflow-scheduler
