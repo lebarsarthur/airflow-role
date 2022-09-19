@@ -4,10 +4,6 @@
   shell: openssl rand -hex 12
   register: airflow_user_password
 
-- name: Print airflow user password
-  debug:
-    msg: "{{ airflow_user_password }}"
-
 - name: Airflow | Ensure Airflow group
   group:
     name: "{{ airflow_group }}"
