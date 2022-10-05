@@ -29,3 +29,5 @@ fi
 if [ -d "{{ airflow_conf_path }}" ] ; then
     export AIRFLOW_CONFIG={{ airflow_conf_path }}/airflow.cfg
 fi
+if [ -d "{{ airflow_tmp_dir }}" ] ; then
+    export TMPDIR="{{ airflow_tmp_dir }}"
