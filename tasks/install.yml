@@ -60,7 +60,7 @@
     executable: "{{ airflow_pip_executable }}"
     name: virtualenv
 
-- name: Airflow | Check if exists virtualenv
+- name: Airflow | Check if exists   virtualenv
   stat:
     path: "{{ airflow_app_home }}/pyvenv.cfg"
   register: virtualenv_check
@@ -70,15 +70,6 @@
   become_user: "{{ airflow_user }}"
   command: "virtualenv -p python{{ airflow_python_version | default(omit) }} {{ airflow_app_home }}"
   when: not virtualenv_check.stat.exists
-
-- name: Airflow |  Ensure permissions in virtualenv
-  become: true
-  become_user: "{{ airflow_user }}"
-  file:
-    path: "{{ airflow_app_home }}"
-    state: directory
-    mode: a+rwx
-    recurse: yes
 
 - name: Airflow | Installing Python pip dependencies
   become: true
