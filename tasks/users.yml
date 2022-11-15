@@ -7,7 +7,7 @@
   register: airflow_check_users
   changed_when: false
   when: airflow_version is version( '2.0.0', '>=')
-  no_log: false
+  no_log: true
 
 - name: Airflow | Create Admin users (> 2.0)
   become: true
@@ -17,7 +17,6 @@
   with_items: "{{ airflow_admin_users }}"
   when:
     - airflow_version is version( '2.0.0', '>=')
-    - "item.email not in airflow_check_users.stdout"
 
 - name: Airflow | Create regular users (> 2.0)
   become: true
