@@ -98,6 +98,7 @@
     - restart airflow-worker
     - restart airflow-flower
   tags: airflow-db-upgrade
+  ignore_errors: yes
 
 - name: Airflow | Initializing DB > 2.0
   command: "{{ airflow_executable }} db init"
