@@ -92,7 +92,8 @@ parallelism = {{ airflow_parallelism }}
 # the number of tasks that is running concurrently for a DAG, add up the number of running
 # tasks for all DAG runs of the DAG. This is configurable at the DAG level with ``concurrency``,
 # which is defaulted as ``dag_concurrency``.
-dag_concurrency = {{ airflow_dag_concurrency }}
+# dag_concurrency = {{ airflow_dag_concurrency }}  # renamed max_active_tasks_per_dag
+max_active_tasks_per_dag = {{ airflow_max_active_tasks_per_dag }}
 
 # Are DAGs paused by default at creation
 dags_are_paused_at_creation = {{ airflow_dags_are_paused_at_creation }}

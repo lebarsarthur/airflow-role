@@ -73,7 +73,8 @@ sql_alchemy_pool_recycle = {{ airflow_database_pool_recycle }}
 parallelism = {{ airflow_parallelism }}
 
 # The number of task instances allowed to run concurrently by the scheduler
-dag_concurrency = {{ airflow_dag_concurrency }}
+# dag_concurrency = {{ airflow_dag_concurrency }}  # renamed
+max_active_tasks_per_dag = {{ airflow_max_active_tasks_per_dag }}
 
 # Are DAGs paused by default at creation
 dags_are_paused_at_creation = {{ airflow_dags_are_paused_at_creation }}
