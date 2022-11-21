@@ -113,6 +113,7 @@
     - restart airflow-worker
     - restart airflow-flower
   tags: airflow-db-init
+  ignore_errors: yes
 
 - name: Airflow | Copy extra airflow config files (provided by playbooks)
   copy:
