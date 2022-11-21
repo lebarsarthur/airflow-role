@@ -32,9 +32,6 @@ executor = {{ airflow_executor }}
 # http://airflow.apache.org/docs/apache-airflow/stable/howto/set-up-database.html#database-uri
 sql_alchemy_conn = {{ airflow_database_conn }}
 
-# The encoding for the databases
-sql_engine_encoding = {{ airflow_database_engine_encoding }}
-
 # Collation for ``dag_id``, ``task_id``, ``key`` columns in case they have different encoding.
 # This is particularly useful in case of mysql with utf8mb4 encoding because
 # primary keys for XCom table has too big size and ``sql_engine_collation_for_ids`` should
@@ -42,39 +39,11 @@ sql_engine_encoding = {{ airflow_database_engine_encoding }}
 # sql_engine_collation_for_ids =
 {% if airflow_database_engine_collation_for_ids %}sql_engine_collation_for_ids = {{ airflow_database_engine_collation_for_ids }}{% endif %}
 
-# If SqlAlchemy should pool database connections.
-sql_alchemy_pool_enabled = {{ airflow_database_pool_enabled }}
-
-# The SqlAlchemy pool size is the maximum number of database connections
-# in the pool. 0 indicates no limit.
-sql_alchemy_pool_size = {{ airflow_database_pool_size }}
-
-# The maximum overflow size of the pool.
-# When the number of checked-out connections reaches the size set in pool_size,
-# additional connections will be returned up to this limit.
-# When those additional connections are returned to the pool, they are disconnected and discarded.
-# It follows then that the total number of simultaneous connections the pool will allow
-# is pool_size + max_overflow,
-# and the total number of "sleeping" connections the pool will allow is pool_size.
-# max_overflow can be set to ``-1`` to indicate no overflow limit;
-# no limit will be placed on the total number of concurrent connections. Defaults to ``10``.
-sql_alchemy_max_overflow = {{ airflow_database_max_overflow }}
-
 # The SqlAlchemy pool recycle is the number of seconds a connection
 # can be idle in the pool before it is invalidated. This config does
 # not apply to sqlite. If the number of DB connections is ever exceeded,
 # a lower config value will allow the system to recover faster.
 airflow_database_pool_recycle = {{ airflow_database_pool_recycle }}
-
-# Check connection at the start of each connection pool checkout.
-# Typically, this is a simple statement like "SELECT 1".
-# More information here:
-# https://docs.sqlalchemy.org/en/13/core/pooling.html#disconnect-handling-pessimistic
-sql_alchemy_pool_pre_ping = {{ airflow_database_pool_pre_ping }}
-
-# The schema to use for the metadata database.
-# SqlAlchemy supports databases with the concept of multiple schemas.
-sql_alchemy_schema = {{ airflow_database_schema }}
 
 # Import path for connect args in SqlAlchemy. Defaults to an empty dict.
 # This is useful when you want to configure db engine args that SqlAlchemy won't parse
@@ -212,11 +181,6 @@ lazy_load_plugins = {{ airflow_lazy_load_plugins }}
 # loaded from module.
 lazy_discover_providers = {{ airflow_lazy_discover_providers }}
 
-# Number of times the code should be retried in case of DB Operational Errors.
-# Not all transactions will be retried as it can cause undesired state.
-# Currently it is only used in ``DagFileProcessor.process_file`` to retry ``dagbag.sync_to_db``.
-max_db_retries = {{ airflow_max_db_retries }}
-
 # Hide sensitive Variables or Connection extra json keys from UI and task logs when set to True
 #
 # (Connection passwords are always hidden in logs)
@@ -225,6 +189,44 @@ hide_sensitive_var_conn_fields = {{ airflow_hide_sensitive_var_conn_fields }}
 # A comma-separated list of extra sensitive keywords to look for in variables names or connection's
 # extra JSON.
 sensitive_var_conn_names = {{ airflow_sensitive_var_conn_names }}
+
+# Database related configuration variables
+[database]
+# If SqlAlchemy should pool database connections.
+sql_alchemy_pool_enabled = {{ airflow_database_pool_enabled }}
+
+# The SqlAlchemy pool size is the maximum number of database connections
+# in the pool. 0 indicates no limit.
+sql_alchemy_pool_size = {{ airflow_database_pool_size }}
+
+# The maximum overflow size of the pool.
+# When the number of checked-out connections reaches the size set in pool_size,
+# additional connections will be returned up to this limit.
+# When those additional connections are returned to the pool, they are disconnected and discarded.
+# It follows then that the total number of simultaneous connections the pool will allow
+# is pool_size + max_overflow,
+# and the total number of "sleeping" connections the pool will allow is pool_size.
+# max_overflow can be set to ``-1`` to indicate no overflow limit;
+# no limit will be placed on the total number of concurrent connections. Defaults to ``10``.
+sql_alchemy_max_overflow = {{ airflow_database_max_overflow }}
+
+# Check connection at the start of each connection pool checkout.
+# Typically, this is a simple statement like "SELECT 1".
+# More information here:
+# https://docs.sqlalchemy.org/en/13/core/pooling.html#disconnect-handling-pessimistic
+sql_alchemy_pool_pre_ping = {{ airflow_database_pool_pre_ping }}
+
+# The schema to use for the metadata database.
+# SqlAlchemy supports databases with the concept of multiple schemas.
+sql_alchemy_schema = {{ airflow_database_schema }}
+
+# Number of times the code should be retried in case of DB Operational Errors.
+# Not all transactions will be retried as it can cause undesired state.
+# Currently it is only used in ``DagFileProcessor.process_file`` to retry ``dagbag.sync_to_db``.
+max_db_retries = {{ airflow_max_db_retries }}
+
+# The encoding for the databases
+sql_engine_encoding = {{ airflow_database_engine_encoding }}
 
 [logging]
 # The folder where airflow should store its log files
@@ -832,7 +834,7 @@ scheduler_heartbeat_sec = {{ airflow_scheduler_heartbeat_sec }}
 num_runs = {{ airflow_scheduler_num_runs }}
 
 # The number of seconds to wait between consecutive DAG file processing
-processor_poll_interval = {{ airflow_scheduler_processor_poll_interval }}
+scheduler_idle_sleep_time = {{ airflow_scheduler_processor_poll_interval }}
 
 # Number of seconds after which a DAG file is parsed. The DAG file is parsed every
 # ``min_file_process_interval`` number of seconds. Updates to DAGs are reflected after

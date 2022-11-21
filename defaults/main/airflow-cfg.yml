@@ -257,7 +257,7 @@ airflow_scheduler_job_heartbeat_sec: 5
 airflow_scheduler_clean_tis_without_dagrun_interval: 15.0
 airflow_scheduler_heartbeat_sec: 5
 airflow_scheduler_num_runs: -1
-airflow_scheduler_processor_poll_interval: 1
+scheduler_idle_sleep_time: 1
 airflow_scheduler_min_file_process_interval: 30
 airflow_scheduler_dag_dir_list_interval: 300
 airflow_scheduler_print_stats_interval: 30
