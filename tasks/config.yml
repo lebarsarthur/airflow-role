@@ -85,6 +85,20 @@
     - airflow-db-init
     - skip_ansible_lint
 
+- name: Airflow | Upgrade DB > 2.0
+  command: "{{ airflow_executable }} db upgrade"
+  become: true
+  become_user: "{{ airflow_user }}"
+  when:
+    - airflow_version is version( '2.0.0', '>=')
+    - airflow_install.changed or airflow_config.changed
+  notify:
+    - restart airflow-webserver
+    - restart airflow-scheduler
+    - restart airflow-worker
+    - restart airflow-flower
+  tags: airflow-db-upgrade
+
 - name: Airflow | Initializing DB > 2.0
   command: "{{ airflow_executable }} db init"
   become: true
