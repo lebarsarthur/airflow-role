@@ -113,7 +113,8 @@
     - restart airflow-worker
     - restart airflow-flower
   tags: airflow-db-init
-  ignore_errors: yes
+  register: db_init_airflow2
+  failed_when: "'FAILED' in db_init_airflow2.stderr"
 
 - name: Airflow | Copy extra airflow config files (provided by playbooks)
   copy:

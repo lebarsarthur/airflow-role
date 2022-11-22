@@ -15,6 +15,8 @@
   with_items: "{{ airflow_admin_users }}"
   when:
     - airflow_version is version( '2.0.0', '>=')
+  register: create_admin_users_airflow2
+  failed_when: "'FAILED' in create_admin_users_airflow2.stderr"
 
 - name: Airflow | Create regular users (> 2.0)
   become: true
