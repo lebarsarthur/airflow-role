@@ -183,7 +183,7 @@ airflow_services:
     enabled: true
     running: true
     state: started
-    path: airflow-trigger.service.j2
+    path: airflow-triggerer.service.j2
   airflow_worker:
     service_name: airflow-worker
     enabled: false
