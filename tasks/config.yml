@@ -33,6 +33,7 @@
   notify:
     - restart airflow-webserver
     - restart airflow-scheduler
+    - restart airflow-triggerer
     - restart airflow-worker
     - restart airflow-flower
   tags: airflow-webserver-config-py

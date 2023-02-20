@@ -12,6 +12,9 @@ service:
   airflow-scheduler:
     enabled: {{ airflow_services.airflow_scheduler.enabled }}
     running: {{ airflow_services.airflow_scheduler.running }}
+  airflow-triggerer:
+    enabled: {{ airflow_services.airflow_triggerer.enabled }}
+    running: {{ airflow_services.airflow_triggerer.running }}
   airflow-worker:
     enabled: {{ airflow_services.airflow_worker.enabled }}
     running: {{ airflow_services.airflow_worker.running }}
