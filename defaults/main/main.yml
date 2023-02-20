@@ -178,6 +178,12 @@ airflow_services:
     running: true
     state: started
     path: airflow-scheduler.service.j2
+  airflow_triggerer:
+    service_name: airflow-triggerer
+    enabled: true
+    running: true
+    state: started
+    path: airflow-trigger.service.j2
   airflow_worker:
     service_name: airflow-worker
     enabled: false
@@ -190,6 +196,7 @@ airflow_services:
     running: false
     state: started
     path: airflow-flower.service.j2
+
 
 # Files & Paths
 airflow_executable: "{{ airflow_app_home }}/bin/airflow"
