@@ -17,6 +17,14 @@
    airflow_services['airflow_scheduler']
    and airflow_services['airflow_scheduler']['enabled']
 
+- name: restart airflow-triggerer
+  systemd:
+    name: airflow-triggerer
+    state: restarted
+  when: >-
+   airflow_services['airflow_triggerer']
+   and airflow_services['airflow_triggerer']['enabled']
+
 - name: restart airflow-worker
   systemd:
     name: airflow-worker
