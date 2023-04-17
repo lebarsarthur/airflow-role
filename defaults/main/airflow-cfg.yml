@@ -49,7 +49,7 @@ airflow_min_serialized_dag_fetch_interval: 10
 airflow_max_num_rendered_ti_fields_per_task: 30
 airflow_check_slas: True
 airflow_xcom_backend: airflow.models.xcom.BaseXCom
-airflow_lazy_load_plugins: True
+airflow_lazy_load_plugins: False
 airflow_lazy_discover_providers: True
 airflow_max_db_retries: 3
 airflow_hide_sensitive_var_conn_fields: True
