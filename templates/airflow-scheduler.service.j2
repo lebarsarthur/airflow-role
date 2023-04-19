@@ -22,7 +22,11 @@ EnvironmentFile={{ airflow_environment_file_folder }}/airflow
 User={{ airflow_user }}
 Group={{ airflow_group }}
 Type=simple
+{% if airflow_scheduler_runs is defined %}
 ExecStart={{ airflow_executable }} scheduler -n ${SCHEDULER_RUNS} --pid {{ airflow_pidfile_folder }}-scheduler/scheduler.pid
+{% else %}
+ExecStart={{ airflow_executable }} scheduler --pid {{ airflow_pidfile_folder }}-scheduler/scheduler.pid
+{% endif %}
 KillSignal=SIGINT
 Restart=always
 RestartSec=5s
